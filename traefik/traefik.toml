@@ -1,0 +1,22 @@
+################################################################
+# Global configuration
+################################################################
+traefikLogsFile = "/dev/stdout"
+#"/proc/self/fd/1"
+accessLogsFile = "/dev/stdout"
+logLevel = "INFO"
+
+################################################################
+# Web configuration backend
+################################################################
+[web]
+address = ":8080"
+[web.http.auth.basic]
+users = ["test:$apr1$ySvUsWkZ$rVIB41x7eCFqGAAP5.HEy1"]
+
+################################################################
+# Docker configuration backend
+################################################################
+[docker]
+domain = "geodata.ird.nc"
+watch = true

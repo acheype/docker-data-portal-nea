@@ -1,0 +1,30 @@
+httpd-proxy:
+    container_name: httpd-proxy
+    image: acheype/httpd-proxy
+    links:
+        - "httpd-webdav:httpd-webdav"
+        - "lizmap:lizmap"
+        - "httpd-www:httpd-www"
+    ports:
+        - "80:80"
+
+httpd-www:
+    container_name: httpd-www
+    image: acheype/httpd-www
+    volumes:
+        - /data/www:/var/www/html
+
+httpd-webdav:
+    container_name: webdav
+    image: acheype/httpd-webdav
+    volumes:
+        - /data/webdav:/var/webdav
+    
+lizmap:
+    container_name: lizmap
+    image: acheype/lizmap
+    volumes:
+        - /data/webdav/lizmap:/home
+        - /data/lizmap_var:/var/www/websig/lizmap/var
+        - /data/lizmap_tmp:/tmp
+    

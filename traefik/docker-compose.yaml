@@ -1,0 +1,30 @@
+traefik:
+    container_name: traefic
+    image: traefik
+    command: -c /dev/null --web --docker --docker.domain=data-pacifique.ird.nc
+    ports:
+        - "80:80"
+    volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+        - ./traefik/traefik.toml:/etc/traefik/traefik.toml
+
+http-webdav:
+    container_name: webdav
+    image: acheype/httpd-webdav
+    labels:
+        - "traefik.backend=webdav"
+        - "traefik.frontend.rule=Host:webdav.data-pacifique.ird.nc"
+    volumes:
+        - /data/webdav:/var/webdav
+    
+lizmap:
+    container_name: lizmap
+    image: acheype/lizmap
+    labels:
+        - "traefik.backend=lizmap"
+        - "traefik.frontend.rule=Host:lizmap.data-pacifique.ird.nc"
+    volumes:
+        - /data/webdav/lizmap:/home
+        - /data/lizmap_var:/var/www/websig/lizmap/var
+        - /data/lizmap_tmp:/tmp
+    
