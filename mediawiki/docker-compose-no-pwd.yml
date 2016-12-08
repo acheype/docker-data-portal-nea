@@ -1,0 +1,37 @@
+wiki:
+    image: kristophjunge/mediawiki:1.28
+    environment:
+      MEDIAWIKI_SERVER: http://data-pacifique:8080
+      MEDIAWIKI_SITENAME: Wiki du portail de données - IRD Nouméa
+      MEDIAWIKI_LANGUAGE_CODE: fr
+      MEDIAWIKI_SECRET_KEY: mysecretkey
+      MEDIAWIKI_DB_TYPE: mysql
+      MEDIAWIKI_DB_HOST: mysql
+      MEDIAWIKI_DB_PORT: 3306
+      MEDIAWIKI_DB_NAME: wikidb
+      MEDIAWIKI_DB_USER: wikiuser
+      MEDIAWIKI_DB_TABLE_OPTIONS: ENGINE=InnoDB, DEFAULT CHARSET=utf8
+      MEDIAWIKI_DB_PASSWORD: $MEDIA_WIKI_DB_PWD
+      MEDIAWIKI_ENABLE_UPLOADS: 1
+      MEDIAWIKI_ENABLE_VISUAL_EDITOR: 1
+      MEDIAWIKI_DEFAULT_SKIN: vector
+    ports:
+        - "8080:80"
+    links:
+        - mysql:mysql
+    volumes:
+        - /data/wiki/images:/images
+        - ./logo_IRD.png:/var/www/mediawiki/resources/assets/wiki.png:ro
+        - ./ExtraLocalSettings.php:/var/www/mediawiki/ExtraLocalSettings.php:ro
+mysql:
+    image: mysql:8.0
+    environment:
+        MYSQL_DATABASE: wikidb
+        MYSQL_USER: wikiuser
+        MYSQL_PASSWORD: $MEDIA_WIKI_DB_PWD
+        MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PWD
+    volumes:
+        - /data/wiki/mysql:/var/lib/mysql
+    ports:
+        - 3306:3306
+            
