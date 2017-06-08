@@ -1,23 +1,23 @@
 version: '2'
 services:
-    httpd-proxy:
+    proxy:
         container_name: proxy
         build: ./httpd-proxy
         image: acheype/httpd-proxy
         links:
-            - "httpd-www:httpd-www"
-            - "httpd-webdav:httpd-webdav"
+            - "www:www"
+            - "webdav:webdav"
             - "lizmap:lizmap"
             - "wiki:wiki"
         ports:
             - "80:80"
-    httpd-www:
+    www:
         container_name: www
         build: ./httpd-www
         image: acheype/httpd-www
         volumes:
             - /data/www:/var/www/html
-    httpd-webdav:
+    webdav:
         container_name: webdav
         build: ./httpd-webdav
         image: acheype/httpd-webdav

@@ -43,11 +43,11 @@ ENV PGSERVICEFILE /etc/pg_service.conf
 
 #-----------------Install lizmap-web-client-------------------------------
 # Download & unzip
-ADD https://github.com/3liz/lizmap-web-client/archive/3.0.3.zip /var/www/
-# unzip lizmap 3.0.3
-RUN unzip /var/www/3.0.3.zip -d /var/www/
-RUN mv /var/www/lizmap-web-client-3.0.3/ /var/www/websig/
-RUN rm /var/www/3.0.3.zip
+ADD https://github.com/3liz/lizmap-web-client/archive/3.0.5.zip /var/www/
+# unzip lizmap 3.0.5
+RUN unzip /var/www/3.0.5.zip -d /var/www/
+RUN mv /var/www/lizmap-web-client-3.0.5/ /var/www/websig/
+RUN rm /var/www/3.0.5.zip
 
 # Set rights & active config
 RUN chmod +x /var/www/websig/lizmap/install/set_rights.sh

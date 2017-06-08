@@ -14,7 +14,10 @@ ENV APACHE_LOCK_DIR /var/lock/apache2
 
 RUN mkdir -p /var/lock/apache2; chown $APACHE_UID /var/lock/apache2
 RUN sed -i 's@Listen 80@Listen '"$APACHE_PORT"'@' /etc/apache2/ports.conf
+RUN sed -i 's@ErrorLog ${APACHE_LOG_DIR}/error.log@ErrorLog /dev/stderr@' /etc/apache2/apache2.conf
 RUN sed -i '1s/^/ServerName localhost\n/' /etc/apache2/sites-available/000-default.conf
+RUN sed -i 's@ErrorLog ${APACHE_LOG_DIR}/error.log@ErrorLog /dev/stderr@' /etc/apache2/sites-available/000-default.conf
+RUN sed -i 's@CustomLog ${APACHE_LOG_DIR}/access.log combined@CustomLog /dev/stdout vhost_combined@' /etc/apache2/sites-available/000-default.conf
 #RUN sed -i 's@Require all granted@Require all denied@' /etc/apache2/apache2.conf
 
 VOLUME ["/var/www/html"]

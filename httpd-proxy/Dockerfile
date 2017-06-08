@@ -16,6 +16,7 @@ ENV APACHE_LOCK_DIR /var/lock/apache2
 
 RUN mkdir -p /var/lock/apache2; chown $APACHE_UID /var/lock/apache2
 RUN sed -i 's@Listen 80@Listen '"$APACHE_PORT"'@' /etc/apache2/ports.conf
+RUN sed -i 's@ErrorLog ${APACHE_LOG_DIR}/error.log@ErrorLog /dev/stderr@' /etc/apache2/apache2.conf
 #RUN sed -i 's@#ServerName www.example.com@ServerName localhost@' /etc/apache2/apache2.conf
 RUN sed -i 's@Require all granted@Require all denied@' /etc/apache2/apache2.conf
 
